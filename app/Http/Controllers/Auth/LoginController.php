@@ -41,9 +41,13 @@ class LoginController extends Controller
             return redirect('/admin');
         }
         elseif($users->type=='doctor')
-            {
-                return redirect('/doctor');
-            }
+        {
+            return redirect('/doctor');
+        }
+        elseif($users->type=='default')
+        {
+            return redirect('/patient');
+        }
         
     }
 }

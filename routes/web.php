@@ -12,14 +12,34 @@
 */
 
 Route::view('/', 'welcome');
+Route::get('/', 'PatientsInfoController@manage');
 Auth::routes();
 Auth::routes(['verify' => true]);
-Route::get('/home', 'HomeController@index')    
-    ->name('home')->middleware('verified');
+
+Route::get('/patient', 'HomeController@index')    
+    ->name('Patient')->middleware('verified');
+
+Route::post('/petientprofile', 'PatientsInfoController@index')    
+    ->middleware('verified')    
+    ->name('home');
+
 Route::get('/admin', 'AdminController@admin')    
     ->middleware('is_admin')    
     ->name('admin');
+
+Route::post('/profile', 'AdminInfoController@index')
+    ->middleware('is_admin')    
+    ->name('admin');
+
 Route::get('/doctor', 'DoctorController@doctor')    
     ->middleware('is_doctor')    
     ->name('doctor');
-Route::post('/profile', 'adminRegisterController@index');
+
+Route::post('/doctorprofile', 'DoctorInfoController@index')
+    ->middleware('is_doctor')    
+    ->name('doctor');
+    
+Route::get('/autocomplete', 'PatientsInfoController@autocomplete');
+Route::post('/autocomplete/fetch', 'PatientsInfoController@fetch')->name('autocomplete.fetch');
+
+

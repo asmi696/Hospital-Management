@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<br>
 @if(Session::has('error'))
 <p class="alert {{ Session::get('alert-class', 'col-5 mx-auto alert-danger') }}"><strong>{{ Session::get('error') }}</strong></p>
 @endif
@@ -13,11 +14,11 @@
   </div>
 </div>
 </div><br> -->
-<br><br>       
+<br>    
 <div class="container col-md-5 pb-4">
   <div class="card text-center" style="background:gray;">
   <div class="card-header">
-    ADMIN REGISTER PANEL
+    PATIENTS REGISTER PANEL
   </div>
   <div class="card-body">
       <?php
@@ -26,7 +27,7 @@
         }
       ;?>
       
-    <form method="post" action="{{url('/profile') }}">
+    <form method="post" action="{{url('/petientprofile') }}">
     @csrf
       <div class="form-group">
         <label for="exampleInputcountry1"class="fas fa-user-graduate">&nbsp Select Your salutation :</label>

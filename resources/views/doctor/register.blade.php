@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<br><br>  
 @if(Session::has('error'))
 <p class="alert {{ Session::get('alert-class', 'col-5 mx-auto alert-danger') }}"><strong>{{ Session::get('error') }}</strong></p>
 @endif
@@ -13,11 +14,11 @@
   </div>
 </div>
 </div><br> -->
-<br><br>       
+ <br>   
 <div class="container col-md-5 pb-4">
   <div class="card text-center" style="background:gray;">
   <div class="card-header">
-    ADMIN REGISTER PANEL
+    DOCTOR REGISTER PANEL
   </div>
   <div class="card-body">
       <?php
@@ -26,7 +27,7 @@
         }
       ;?>
       
-    <form method="post" action="{{url('/profile') }}">
+    <form method="post" action="{{url('/doctorprofile') }}">
     @csrf
       <div class="form-group">
         <label for="exampleInputcountry1"class="fas fa-user-graduate">&nbsp Select Your salutation :</label>
@@ -66,7 +67,15 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1" class="fas fa-user-tie">&nbsp Enter Your Date Of Birth:</label>
-        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="Enter Your NIC">
+        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="Enter Your Date of Birth">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1" class="fas fa-user-tie">&nbsp Enter Your Working Place:</label>
+        <input type="text" class="form-control" id="working_hospital" name="working_hospital" placeholder="Enter Your Working Place">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1" class="fas fa-user-tie">&nbsp Enter Your Register Number:</label>
+        <input type="text" class="form-control" id="register_num" name="register_num" placeholder="Enter Your Register Number">
       </div>
       
       <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>

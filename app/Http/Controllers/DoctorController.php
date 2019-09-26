@@ -15,8 +15,8 @@ class DoctorController extends Controller
     {
         $exist=DB::table('users')->where('id',Auth::user()->id)->where('state',1)->count();
         if($exist != 0){
-            return view('doctor');
+            return view('doctor.profile');
         }
-        return view('welcome');
+        return view('doctor.register');
     }
 }

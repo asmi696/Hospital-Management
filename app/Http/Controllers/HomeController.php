@@ -25,8 +25,8 @@ class HomeController extends Controller
     {
         $exist=DB::table('users')->where('id',Auth::user()->id)->where('state',1)->count();
         if($exist != 0){
-            return view('home');
+            return view('patient.profile');
         }
-        return view('welcome');
+        return view('patient.register');
     }
 }

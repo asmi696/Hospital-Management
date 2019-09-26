@@ -1,99 +1,104 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('content')
+<div class="container col-md-4 pb-5 pt-4 pl-4 pr-4" style="background-color:white;">
+<form method="post" id="searcht" name="searcht" >
+  <center><h1 style="color:red;">Doctor Channel</h1></center><br>
+  <div class="form-group">
+    <i class="fas fa-user-md"><label for="">&nbsp Doctor Name :-</label></i>
+    <input type="text" class="form-control active" id="search"  placeholder="Doctor Name" style="width: 100%;border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid red;
+    padding: 5px 15px;
+    outline: none;" name="search">
+    <div id="searchList">
+    </div>
+    {{ csrf_field() }}
+  </div>
+  
+<div class="form-group">
+  <i class="fas fa-clinic-medical"><label for="">&nbsp Hospital Name :-</label></i><br>
+  <div class="input-group">
+  	<select name="categories" id="categories" class="form-control"
+    style="width: 100%;border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid red;
+    padding: 5px 15px;
+    outline: none;">
+    <option value="0" data-area="0" selected="selected">Any Hospital</option>
+    @foreach($patient as $patientname)
+      <option value="{{ $patientname->id }}">{{ $patientname->f_name }}</option>
+    @endforeach
+    </select>	  	 
+</div>
+</div>
 
-        <title>Laravel</title>
+<div class="form-group">
+  <i class="fas fa-clinic-medical"><label for="">&nbsp Doctor Special :-</label></i><br>
+  <div class="input-group">
+    
+  <select name="categories" id="categories" class="form-control"
+    style="width: 100%;border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid red;
+    padding: 5px 15px;
+    outline: none;">
+    <option value="0" data-area="0" selected="selected">Any Hospital</option>
+    @foreach($patient as $patientname)
+      <option value="{{ $patientname->id }}">{{ $patientname->f_name }}</option>
+    @endforeach
+    </select>	  
+           
+</div>
+</div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
 
-            .full-height {
-                height: 100vh;
-            }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+<div class="form-group">
+    <i class="fas fa-calendar-alt"><label for="">&nbsp Date :-</label></i>
+    <input type="DATE"  class="form-control active" placeholder="Any Date" style="width: 100%;border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid red;
+    padding: 5px 15px;
+    outline: none;" id="date" name="date"> 
 
-            .position-ref {
-                position: relative;
-            }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+</div><br>	
+<button type="submit" class="btn btn-primary fas fa-search-plus" style="width:100%;" id="submit" name="submit">&nbsp Search</button>
 
-            .content {
-                text-align: center;
-            }
+</form>
+</div><br><br>&nbsp
 
-            .title {
-                font-size: 84px;
-            }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+ $('#search').keyup(function(){ 
+        var query = $(this).val();
+        if(query != '')
+        {
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url:"{{ route('autocomplete.fetch') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+           $('#searchList').fadeIn();  
+                    $('#searchList').html(data);
+          }
+         });
+        }
+    });
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+    
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+});
+</script>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+@endsection
