@@ -13,12 +13,13 @@
 
 Route::view('/', 'welcome');
 Auth::routes();
-
+Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')    
-    ->name('home');
+    ->name('home')->middleware('verified');
 Route::get('/admin', 'AdminController@admin')    
     ->middleware('is_admin')    
     ->name('admin');
 Route::get('/doctor', 'DoctorController@doctor')    
     ->middleware('is_doctor')    
     ->name('doctor');
+Route::post('/profile', 'adminRegisterController@index');
